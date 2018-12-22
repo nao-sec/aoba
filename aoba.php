@@ -18,7 +18,7 @@ if (!file_exists($base_dir)) {
     mkdir($base_dir);
 }
 
-$starc = new StarC('starc0', 'setuped');
+$starc = new StarC($chain_id, 'starc0', 'setuped');
 
 $starc_status = $starc->get_status();
 if ($starc_status['is_running'] === true) {

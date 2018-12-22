@@ -7,11 +7,11 @@ class StarC
     private $vm_name = null;
     private $snapshot_name = null;
 
-    public function __constructor(string $_vm_name, string $_snapshot_name)
+    public function __constructor(string $_id, string $_vm_name, string $_snapshot_name)
     {
-        $this::$id = Uuid::uuid4()->toString();
-        $this::$vm_name = $_vm_name;
-        $this::$snapshot_name = $_snapshot_name;
+        $this->$id = $_id;
+        $this->$vm_name = $_vm_name;
+        $this->$snapshot_name = $_snapshot_name;
     }
 
     private function get_status()
