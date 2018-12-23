@@ -21,7 +21,7 @@ class EKTotal
 
         $ch = curl_init();
         $options = [
-            CURLOPT_URL => $this->$base_url . '/api/submit',
+            CURLOPT_URL => $this->base_url . '/api/submit',
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => $post,
@@ -34,24 +34,24 @@ class EKTotal
         if (!isset($result['id'])) {
             // エラー処理
         }
-        $this->$id = $result['id'];
+        $this->id = $result['id'];
 
         return $result;
     }
 
     public function get_result()
     {
-        $result = file_get_contents($this->$base_url . '/api/result/' . $this->$id);
+        $result = file_get_contents($this->base_url . '/api/result/' . $this->id);
         $result = json_decode($result, true);
     }
 
     public function get_webui_url()
     {
-        return $this->$base_url . '/analyze/' . $this->$id;
+        return $this->base_url . '/analyze/' . $this->id;
     }
 
     public function get_malware(string $sha256)
     {
-        return file_get_contents($this->$base_url . '/malware/' . $sha256 . '.bin');
+        return file_get_contents($this->base_url . '/malware/' . $sha256 . '.bin');
     }
 }

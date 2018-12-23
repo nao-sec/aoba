@@ -18,14 +18,14 @@ class tknk
             // エラー処理
             return null;
         }
-        $this->$file_name = basename($malware_path);
+        $this->file_name = basename($malware_path);
 
         $cfile = curl_file_create($malware_path);
         $post = ['file' => $cfile];
 
         $ch = curl_init();
         $options = [
-            CURLOPT_URL => $this->$base_url . '/api/upload',
+            CURLOPT_URL => $this->base_url . '/api/upload',
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => $post,
@@ -41,14 +41,14 @@ class tknk
     public function analyze(string $mode)
     {
         $post = [
-            'path' => 'target/' . $this->$file_name,
+            'path' => 'target/' . $this->file_name,
             'mode' => $mode,
-            'time' => $this->$timeout,
+            'time' => $this->timeout,
         ];
 
         $ch = curl_init();
         $options = [
-            CURLOPT_URL => $this->$base_url . '/api/analyze',
+            CURLOPT_URL => $this->base_url . '/api/analyze',
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => $post,
@@ -62,14 +62,14 @@ class tknk
             // エラー処理
         }
 
-        $this->$id = $result['UUID'];
+        $this->id = $result['UUID'];
 
         return $result;
     }
 
     public function get_status()
     {
-        $result = file_get_contents($this->$base_url . '/api/results/' . $this->$id);
+        $result = file_get_contents($this->base_url . '/api/results/' . $this->id);
         if (!isset($result['status_code'])) {
             // エラー処理
         }
@@ -83,7 +83,7 @@ class tknk
 
     public function get_result()
     {
-        $result = file_get_contents($this->base_url . '/api/results/' . $this->$id);
+        $result = file_get_contents($this->base_url . '/api/results/' . $this->id);
         if (!isset($result['status_code'])) {
             // エラー処理
         }
@@ -101,6 +101,6 @@ class tknk
 
     public function get_webui_url()
     {
-        return $this->$base_url . '/results/' . $this->$id;
+        return $this->base_url . '/results/' . $this->id;
     }
 }
