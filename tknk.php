@@ -52,6 +52,9 @@ class tknk
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => $post,
+            CURLOPT_HTTPHEADER => [
+                'Content-Type' => 'application/json',
+            ],
         ];
         curl_setopt_array($ch, $options);
 
