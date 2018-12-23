@@ -16,7 +16,20 @@ class StarC
 
     private function get_status()
     {
-        $result = file_get_contents($this->base_url . '/api/status?id=' . $this->id);
+        $post = [
+            'id' => $this->id,
+        ];
+
+        $ch = curl_init();
+        $options = [
+            CURLOPT_URL => $this->base_url . '/api/status',
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $post,
+        ];
+        curl_setopt_array($ch, $options);
+
+        $result = curl_exec($ch);
         $result = json_decode($result);
 
         return $result;
@@ -97,11 +110,43 @@ class StarC
 
     public function get_pcap()
     {
-        return file_get_contents($this->base_url . '/api/pcap?id=' . $this->id);
+        $post = [
+            'type' => 'pcap',
+            'id' => $this->id,
+        ];
+
+        $ch = curl_init();
+        $options = [
+            CURLOPT_URL => $this->base_url . '/api/file',
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $post,
+        ];
+        curl_setopt_array($ch, $options);
+
+        $result = curl_exec($ch);
+
+        return $result;
     }
 
     public function get_saz()
     {
-        return file_get_contents($this->base_url . '/api/saz?id=' . $this->id);
+        $post = [
+            'type' => 'pcap',
+            'id' => $this->id,
+        ];
+
+        $ch = curl_init();
+        $options = [
+            CURLOPT_URL => $this->base_url . '/api/file',
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $post,
+        ];
+        curl_setopt_array($ch, $options);
+
+        $result = curl_exec($ch);
+
+        return $result;
     }
 }
