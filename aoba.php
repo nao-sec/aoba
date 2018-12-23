@@ -95,7 +95,7 @@ $upload_result = $tknk->upload($malware_data_path);
 $tknk_hollows_hunter_job = $tknk->analyze('hollows_hunter');
 
 $start_time = time();
-$tknk_timeout = $tknk->$timeout + 60;
+$tknk_timeout = $tknk->timeout + 60;
 while (true) {
     if ($tknk->get_status() === 0 || time() > $start_time + $tknk_timeout) {
         break;
